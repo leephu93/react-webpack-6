@@ -19,6 +19,12 @@ module.exports = {
         path: path.join(__dirname, 'dist'),
         filename: '[name].[chunkhash].js'
     },
+    devServer: {
+        contentBase: path.join(__dirname, 'dist'),
+        compress: true,
+        port: 9000,
+        open: true
+    },
     module: {
         rules: [
             {
@@ -41,13 +47,25 @@ module.exports = {
                 ]
             },
             {
-                test: /\.(jpeg|jpg|png|gif|svg|woff|woff2|eot|ttf|wav|mp3|mp4|ico)$/i,
+                test: /\.(svg|woff|woff2|eot|ttf|wav|mp3|mp4|ico)$/i,
                 use: [{
                     loader: 'file-loader',
                     options: {
                         name: '[name].[ext]',
                         outputPath: 'fonts/',       // Tạo thư mục fonts chứa đầu ra các file fonts của font-awesome
                         publicPath: '/dist/fonts'   // Ghi đè đường dẫn mặc định các url của font trong font-awesome.min.css
+                    }
+                }]
+            }
+            ,
+            {
+                test: /\.(jpeg|jpg|png|gif)$/i,
+                use: [{
+                    loader: 'file-loader',
+                    options: {
+                        name: '[name].[ext]',
+                        outputPath: 'images/',       
+                        publicPath: '/dist/images'
                     }
                 }]
             }
