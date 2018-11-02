@@ -81,18 +81,17 @@ module.exports = {
             name: 'vendor'
         },
         splitChunks: {
-            // cacheGroups: {
-            //     vendors: {
-            //         test: /[\\/]node_modules[\\/]/,
-            //         priority: -10,
-            //         // reuseExistingChunk: true
-            //     },
-            //     default: {
-            //         minChunks: 2,
-            //         priority: -20,
-            //         reuseExistingChunk: true
-            //     }
-            // },
+            cacheGroups: {
+                vendors: {
+                    test: /[\\/]node_modules[\\/]/,
+                    priority: -10,
+                },
+                default: {
+                    minChunks: 2,
+                    priority: -20,
+                    reuseExistingChunk: true
+                }
+            },
             chunks: 'all'
         }
     },
