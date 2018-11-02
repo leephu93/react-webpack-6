@@ -21,9 +21,15 @@ module.exports = {
     },
     devServer: {
         contentBase: path.join(__dirname, 'dist'),
+        publicPath: 'http://localhost:9000/dist/',
         compress: true,
         port: 9000,
-        open: true
+        open: true,
+        disableHostCheck: true,
+        historyApiFallback: true,
+        overlay: true,
+        stats: 'minimal',
+        inline: true,
     },
     module: {
         rules: [
@@ -41,9 +47,8 @@ module.exports = {
                         loader: MiniCssExtractPlugin.loader,
                         options: {
                             publicPath: '/dist'
-                        },
-                    },
-                    "css-loader"
+                        }
+                    }, "css-loader"
                 ]
             },
             {
@@ -64,8 +69,8 @@ module.exports = {
                     loader: 'file-loader',
                     options: {
                         name: '[name].[ext]',
-                        outputPath: 'images/',       
-                        publicPath: '/dist/images'
+                        outputPath: 'assets/',
+                        publicPath: '/dist/assets'
                     }
                 }]
             }
@@ -75,13 +80,21 @@ module.exports = {
         runtimeChunk: {
             name: 'vendor'
         },
-        // splitChunks: {
-        //     cacheGroups: {
-        //         vendors: {
-        //             reuseExistingChunk: true
-        //         }
-        //     }
-        // }
+        splitChunks: {
+            // cacheGroups: {
+            //     vendors: {
+            //         test: /[\\/]node_modules[\\/]/,
+            //         priority: -10,
+            //         // reuseExistingChunk: true
+            //     },
+            //     default: {
+            //         minChunks: 2,
+            //         priority: -20,
+            //         reuseExistingChunk: true
+            //     }
+            // },
+            chunks: 'all'
+        }
     },
     plugins: [
         new MiniCssExtractPlugin({
@@ -92,5 +105,5 @@ module.exports = {
             template: 'src/index.html',
         })
     ],
-    mode: 'development'
+    mode: 'production'
 }
